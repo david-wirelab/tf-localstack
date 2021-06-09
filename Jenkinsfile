@@ -10,6 +10,8 @@ def withDockerNetwork(Closure inner) {
 
 pipeline {
   agent any
+
+  stages {
     stage("test") {
       steps {
         script {
