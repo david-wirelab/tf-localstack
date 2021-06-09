@@ -20,7 +20,7 @@ pipeline {
     stage("test") {
       steps {
         script {
-          def tf_code = docker.image('wirelab/terraform-testrunner:9').inside("")
+          def tf_code = docker.image('wirelab/terraform-testrunner:9')
           def localstack = docker.image('localstack/localstack')
 
           withDockerNetwork{ n ->
