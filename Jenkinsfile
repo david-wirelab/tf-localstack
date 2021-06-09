@@ -11,13 +11,13 @@ def withDockerNetwork(Closure inner) {
 pipeline {
   agent none
 
-  stages {
-    stage("checkout scm") {
-      agent any
-      steps{
-        checkout scm
-      }
-    }
+  // stages {
+  //   stage("checkout scm") {
+  //     agent any
+  //     steps{
+  //       checkout scm
+  //     }
+  //   }
     stage("test") {
       agent any
       steps {
