@@ -19,8 +19,10 @@ pipeline {
           def localstack = docker.image('localstack/localstack')
 
           withDockerNetwork{ n ->
-            localstack.inside("--network ${n} --name localstack -p 4566:4566 -p 4571:4571") { c ->
-              tf_code.inside("--network ${n}")
+            localstack.withRun("--network ${n} --name localstack -p 4566:4566 -p 4571:4571") { c ->
+              tf_code.inside("--network ${n}") {
+                sh "python -m unittest tests/*_test.py"
+              }
             }
           }
         }
