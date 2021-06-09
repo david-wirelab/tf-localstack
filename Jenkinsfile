@@ -12,7 +12,7 @@ pipeline {
   agent any
 
   stages {
-    stage("test") {
+    stage("Run Terraform tests") {
       steps {
         script {
           def tf_code = docker.image('wirelab/terraform-testrunner:9')
