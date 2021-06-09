@@ -20,7 +20,7 @@ pipeline {
 
           withDockerNetwork{ n ->
             localstack.inside("--network ${n} --name localstack -v /var/run/docker.sock:/var/run/docker.sock -p 4566:4566 -p 4571:4571") { c ->
-              tf_code.inside("--network ${n} -v /var/run/docker.sock:/var/run/docker.sock") {
+              tf_code.inside("--network ${n} -v /var/run/docker.sock:/var/run/docker.sock --entrypoint=''") {
                 sh "python -m unittest tests/*_test.py"
               }
             }
