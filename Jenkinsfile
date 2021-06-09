@@ -24,8 +24,8 @@ pipeline {
           def localstack = docker.image('localstack/localstack')
 
           withDockerNetwork{ n ->
-            localstack.withRun("--network ${n} --name localstack -p 4566:4566 -p 4571:4571") { c ->
-              tf_code.inside("--network ${n}") {
+            localstack.withRun("--network ${n} --name localstack -v /var/run/docker.sock:/var/run/docker.sock -p 4566:4566 -p 4571:4571") { c ->
+              tf_code.inside("--network ${n} -v /var/run/docker.sock:/var/run/docker.sock") {
                 sh "python -m unittest tests/*_test.py'"
               }
             }
