@@ -12,8 +12,8 @@ pipeline {
   agent none
 
   stages {
-    agent any
     stage("checkout scm") {
+      agent any
       steps{
         checkout scm
       }
