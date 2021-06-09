@@ -9,7 +9,7 @@ def withDockerNetwork(Closure inner) {
 }
 
 pipeline {
-  agent none
+  agent any
 
   stages {
     stage("checkout scm") {
@@ -18,8 +18,6 @@ pipeline {
       }
     }
     stage("test") {
-      agent any
-
       steps {
         script {
           def tf_code = docker.image('wirelab/terraform-testrunner:9')
