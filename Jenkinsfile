@@ -17,8 +17,10 @@ pipeline {
         script {
           withDockerNetwork{ n ->
             sh '''
-            docker run -d --network \$n --name localstack -p 4566:4566 -p 4571:4571 localstack/localstack
-            docker run -d --network \$n --name testrunner wirelab/terraform-testrunner:9 sh -c "python -m unittest tests/*_test.py"
+            docker pull localstack/localstack
+            docker pull wirelab/terraform-testrunner:9
+            docker run -d --network {$n} --name localstack -p 4566:4566 -p 4571:4571 localstack/localstack
+            docker run -d --network {$n} --name testrunner wirelab/terraform-testrunner:9 sh -c "python -m unittest tests/*_test.py"
             '''
           }
         }
