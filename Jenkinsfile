@@ -16,9 +16,9 @@ pipeline {
       steps {
         script {
             sh '''
-            docker network create local
-            docker run -d --network local --name localstack -p 4566:4566 -p 4571:4571 localstack/localstack
-            docker run -d --network local wirelab/terraform-testrunner:9 sh -c "python -m unittest tests/*_test.py"
+            docker network create boo
+            docker run -d --network boo --name localstack -p 4566:4566 -p 4571:4571 localstack/localstack
+            docker run -d --network boo wirelab/terraform-testrunner:9 sh -c "python -m unittest tests/*_test.py"
             '''
         }
       }
