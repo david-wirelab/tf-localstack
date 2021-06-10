@@ -19,7 +19,6 @@ pipeline {
             docker network create local
             docker run -d --network local --name localstack -p 4566:4566 -p 4571:4571 localstack/localstack
             docker run -d --network local wirelab/terraform-testrunner:9 sh -c "python -m unittest tests/*_test.py"
-            docker network rm local
             '''
         }
       }
