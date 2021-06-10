@@ -15,12 +15,9 @@ pipeline {
     stage("Run Terraform tests") {
       steps {
         script {
-          def tf_code = docker.image('wirelab/terraform-testrunner:9')
-          def localstack = docker.image('localstack/localstack')
-
           withDockerNetwork{ n ->
-            localstack.withRun("--network ${n} --name localstack -p 4566:4566 -p 4571:4571") { c ->
-              tf_code.inside("--network ${n}") {
+            sh("docker run -d --network ${n} --name localstack -p 4566:4566 -p 4571:4571 localstack/localstack") { c ->
+              sh("docker run -d --network ${n} wirelab/terraform-testrunner:9") {
                 sh "python -m unittest tests/*_test.py"
               }
             }
