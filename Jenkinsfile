@@ -15,10 +15,10 @@ pipeline {
     stage("Run Terraform tests") {
       steps {
         script {
-          withDockerNetwork{ n ->
+          withDockerNetwork{ network ->
             sh '''
-            docker run -d --network "${n}" --name localstack -p 4566:4566 -p 4571:4571 localstack/localstack
-            docker run -d --network "${n}" wirelab/terraform-testrunner:9 sh -c "python -m unittest tests/*_test.py"
+            docker run -d --network \$network --name localstack -p 4566:4566 -p 4571:4571 localstack/localstack
+            docker run -d --network \$network wirelab/terraform-testrunner:9 sh -c "python -m unittest tests/*_test.py"
             '''
           }
         }
